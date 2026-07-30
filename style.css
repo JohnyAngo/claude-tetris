@@ -20,6 +20,10 @@
   --overlay-title: #e57373;
   --grid-line: #22222e;
   --ghost-highlight: rgba(255, 255, 255, 0.12);
+  --records-row: rgba(255, 255, 255, 0.04);
+  --records-highlight: rgba(122, 162, 247, 0.22);
+  --danger: #e57373;
+  --input-bg: #15151f;
 }
 
 :root[data-theme="light"] {
@@ -37,6 +41,10 @@
   --overlay-bg: rgba(240, 240, 247, 0.85);
   --overlay-title: #c62828;
   --grid-line: #dcdce6;
+  --records-row: rgba(0, 0, 0, 0.03);
+  --records-highlight: rgba(59, 91, 219, 0.18);
+  --danger: #c62828;
+  --input-bg: #ffffff;
 }
 
 body {
@@ -242,6 +250,33 @@ kbd {
   color: var(--accent);
 }
 
+.overlay-box {
+  max-height: 100%;
+  overflow-y: auto;
+  padding: 16px;
+  width: 100%;
+}
+
+.overlay-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.overlay-actions.hidden,
+.overlay-stats.hidden,
+.records.hidden,
+.name-form.hidden {
+  display: none;
+}
+
+#start-title {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 6px;
+  color: var(--accent);
+}
+
 .pause-panel {
   display: flex;
   flex-direction: column;
@@ -341,4 +376,193 @@ kbd {
   display: flex;
   gap: 3px;
   flex: 0 0 78px;
+}
+
+.overlay-stats {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
+  color: var(--control-text);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--control-text);
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.btn-secondary:hover {
+  border-color: var(--accent);
+  color: var(--fg);
+}
+
+.btn-secondary.danger {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+/* ---- Tabla de records ---- */
+.records {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: stretch;
+  width: 100%;
+  max-width: 300px;
+}
+
+.records .label {
+  text-align: center;
+}
+
+.records-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
+}
+
+.records-table th {
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: var(--label-color);
+  font-weight: 600;
+  padding: 3px 5px;
+  text-align: left;
+  border-bottom: 1px solid var(--panel-border);
+}
+
+.records-table th:not(:nth-child(2)) {
+  text-align: right;
+}
+
+.records-table th:nth-child(1) {
+  text-align: center;
+}
+
+.records-table td {
+  padding: 4px 5px;
+  color: var(--fg);
+}
+
+.records-table tbody tr:nth-child(odd) {
+  background: var(--records-row);
+}
+
+.records-table tbody tr.highlight {
+  background: var(--records-highlight);
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.records-table tbody tr.highlight td {
+  color: var(--accent);
+}
+
+.records-table .rank {
+  text-align: center;
+  color: var(--label-color);
+  width: 1.5em;
+}
+
+.records-table .name {
+  max-width: 8em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.records-table .num {
+  text-align: right;
+}
+
+.records-empty {
+  font-size: 12px;
+  color: var(--control-text);
+  text-align: center;
+  padding: 8px 0;
+}
+
+.records-bests {
+  font-size: 11px;
+  color: var(--control-text);
+  text-align: center;
+}
+
+.records-bests strong {
+  color: var(--accent);
+}
+
+/* ---- Formulario de nombre ---- */
+.name-form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+}
+
+.new-record {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--accent);
+}
+
+.name-row {
+  display: flex;
+  gap: 6px;
+}
+
+#player-name {
+  background: var(--input-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
+  color: var(--fg);
+  padding: 8px 10px;
+  font-size: 13px;
+  font-family: inherit;
+  width: 150px;
+}
+
+#player-name:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.name-form button {
+  background: var(--accent);
+  color: var(--accent-contrast);
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.name-form button:hover {
+  opacity: 0.85;
+}
+
+#start-btn {
+  background: var(--accent);
+  color: var(--accent-contrast);
+  border: none;
+  border-radius: 6px;
+  padding: 10px 32px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: opacity 0.15s;
+}
+
+#start-btn:hover {
+  opacity: 0.85;
 }
