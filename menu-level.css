@@ -1,1 +1,101 @@
-/* Stub: estilos de menu-level. Implementado en su propia unidad de trabajo. */
+/* ==========================================================================
+   Selector de nivel inicial del menú de pausa (montado por menu-level.js).
+   Prefijo `.ml-` para no colisionar con otras unidades.
+   ========================================================================== */
+
+.ml-block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  text-align: left;
+}
+
+.ml-label {
+  display: block;
+}
+
+/* El envoltorio posiciona la flecha propia (el `appearance: none` del
+   desplegable elimina la nativa). */
+.ml-select-wrap {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.ml-select-wrap::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  width: 0;
+  height: 0;
+  margin-top: -2px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid var(--label-color);
+  pointer-events: none;
+  transition: border-top-color 0.15s;
+}
+
+.ml-select-wrap:hover::after,
+.ml-select-wrap:focus-within::after {
+  border-top-color: var(--accent);
+}
+
+/* Coherente con `.menu-btn`. */
+.ml-select {
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: var(--panel-bg);
+  color: var(--fg);
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
+  padding: 9px 32px 9px 14px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.ml-select:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.ml-select:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+
+.ml-select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* La lista desplegable la pinta el sistema: forzamos colores del tema para
+   que siga siendo legible en modo oscuro. */
+.ml-select option {
+  background: var(--panel-bg);
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.ml-note {
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--label-color);
+}
+
+/* Esta hoja se carga después de `style.css`: a igual especificidad, un
+   `display` propio le ganaría a `.hidden`. Lo reafirmamos para que ocultar
+   cualquiera de estos elementos siga funcionando. */
+.ml-block.hidden,
+.ml-select-wrap.hidden,
+.ml-note.hidden {
+  display: none;
+}
