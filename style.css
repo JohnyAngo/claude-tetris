@@ -206,8 +206,8 @@ kbd {
   color: var(--accent);
 }
 
-#restart-btn {
-  margin-top: 8px;
+/* ---- Botones ---- */
+.primary-btn {
   background: var(--accent);
   color: var(--accent-contrast);
   border: none;
@@ -217,10 +217,76 @@ kbd {
   font-weight: 700;
   cursor: pointer;
   letter-spacing: 1px;
-  transition: background 0.15s;
+  transition: background 0.15s, opacity 0.15s;
 }
 
-#restart-btn:hover {
-  background: var(--accent);
+.primary-btn:hover {
   opacity: 0.85;
+}
+
+.menu-btn {
+  background: var(--panel-bg);
+  color: var(--fg);
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
+  padding: 9px 28px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.menu-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.primary-btn:focus-visible,
+.menu-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---- Utilidades ---- */
+.hidden {
+  display: none;
+}
+
+/* Un mount vacío no debe ocupar espacio ni romper el gap del flex. */
+.mount:empty {
+  display: none;
+}
+
+/* ---- Pantalla de inicio y menú de pausa ---- */
+.overlay-heading {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 6px;
+  color: var(--accent);
+}
+
+.start-box,
+.menu-box {
+  width: min(320px, 90%);
+  padding: 24px 20px;
+  border: 1px solid var(--panel-border);
+  border-radius: 10px;
+  background: var(--panel-bg);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.35);
+  gap: 14px;
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  align-items: stretch;
+}
+
+.menu-subview {
+  width: 100%;
 }
