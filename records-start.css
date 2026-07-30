@@ -1,1 +1,81 @@
-/* Stub: estilos de records-start. Implementado en su propia unidad de trabajo. */
+/* Tabla de records (top 5) de la pantalla de inicio. Prefijo: .rs- */
+
+#start-records-list {
+  width: 100%;
+}
+
+.rs-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  text-align: left;
+}
+
+.rs-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+}
+
+.rs-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 6px;
+  border-radius: 4px;
+  background: transparent;
+}
+
+.rs-row:nth-child(odd) {
+  background: color-mix(in srgb, var(--panel-border) 30%, transparent);
+}
+
+.rs-pos {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--label-color);
+}
+
+.rs-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.rs-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fg);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rs-meta {
+  font-size: 10px;
+  color: var(--control-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rs-score {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 1px;
+  text-align: right;
+  justify-self: end;
+}
+
+.rs-empty {
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--control-text);
+}
