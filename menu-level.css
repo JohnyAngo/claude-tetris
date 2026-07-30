@@ -90,3 +90,12 @@
   line-height: 1.4;
   color: var(--label-color);
 }
+
+/* Esta hoja se carga después de `style.css`: a igual especificidad, un
+   `display` propio le ganaría a `.hidden`. Lo reafirmamos para que ocultar
+   cualquiera de estos elementos siga funcionando. */
+.ml-block.hidden,
+.ml-select-wrap.hidden,
+.ml-note.hidden {
+  display: none;
+}
