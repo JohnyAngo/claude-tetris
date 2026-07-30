@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tetris</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="menu-controls.css" />
+  <link rel="stylesheet" href="menu-level.css" />
+  <link rel="stylesheet" href="records-start.css" />
+  <link rel="stylesheet" href="records-gameover.css" />
+  <link rel="stylesheet" href="records-reset.css" />
+  <link rel="stylesheet" href="skin-neon.css" />
+  <link rel="stylesheet" href="skin-pastel.css" />
+  <link rel="stylesheet" href="skin-pixel.css" />
+  <link rel="stylesheet" href="skin-selector.css" />
 </head>
 <body>
   <div class="wrapper">
@@ -28,6 +37,10 @@
           <span class="label">LEVEL</span>
           <span class="value" id="level">1</span>
         </div>
+        <div class="panel-section">
+          <span class="label">COMBO</span>
+          <span class="value" id="combo">—</span>
+        </div>
 
         <div class="panel-section">
           <span class="label">NEXT</span>
@@ -41,21 +54,76 @@
             <li><kbd>↑</kbd> rotar</li>
             <li><kbd>↓</kbd> bajar</li>
             <li><kbd>Space</kbd> caída</li>
-            <li><kbd>P</kbd> pausa</li>
+            <li><kbd>P</kbd><kbd>Esc</kbd> pausa</li>
           </ul>
         </div>
       </aside>
     </div>
 
+    <!-- ===== Pantalla de inicio ===== -->
+    <div id="start-screen" class="overlay hidden">
+      <div class="overlay-box start-box">
+        <p class="overlay-heading">TETRIS</p>
+        <button id="play-btn" class="primary-btn">JUGAR</button>
+        <!-- montado por skin-selector.js -->
+        <div id="start-skin-select" class="mount"></div>
+        <!-- montado por records-start.js -->
+        <div id="start-records-list" class="mount"></div>
+        <!-- montados por records-reset.js -->
+        <div id="start-records-stats" class="mount"></div>
+        <div id="start-records-reset" class="mount"></div>
+      </div>
+    </div>
+
+    <!-- ===== Menú de pausa ===== -->
+    <div id="pause-menu" class="overlay hidden" role="dialog" aria-modal="true" aria-label="Menú de pausa">
+      <div class="overlay-box menu-box">
+        <p class="overlay-heading">PAUSA</p>
+
+        <div id="menu-main" class="menu-list">
+          <button id="menu-resume" class="primary-btn">Reanudar</button>
+          <button id="menu-restart" class="menu-btn">Reiniciar</button>
+          <button id="menu-controls-btn" class="menu-btn">Ver controles</button>
+          <!-- montado por menu-level.js -->
+          <div id="menu-level-mount" class="mount"></div>
+        </div>
+
+        <!-- rellenado por menu-controls.js -->
+        <div id="menu-controls-view" class="menu-subview hidden"></div>
+      </div>
+    </div>
+
+    <!-- ===== Game over ===== -->
     <div id="overlay" class="overlay hidden">
       <div class="overlay-box">
         <p id="overlay-title">GAME OVER</p>
         <p id="overlay-score"></p>
-        <button id="restart-btn">Reiniciar</button>
+        <!-- montados por records-gameover.js -->
+        <div id="gameover-name-row" class="mount"></div>
+        <div id="gameover-records-list" class="mount"></div>
+        <button id="restart-btn" class="primary-btn">Reiniciar</button>
       </div>
     </div>
   </div>
 
+  <!-- Capas base -->
+  <script src="storage.js"></script>
   <script src="game.js"></script>
+  <script src="records.js"></script>
+  <script src="skins.js"></script>
+
+  <!-- Módulos de UI (cada uno es independiente y tolera que su mount no exista) -->
+  <script src="menu-controls.js"></script>
+  <script src="menu-level.js"></script>
+  <script src="records-start.js"></script>
+  <script src="records-gameover.js"></script>
+  <script src="records-reset.js"></script>
+  <script src="skin-neon.js"></script>
+  <script src="skin-pastel.js"></script>
+  <script src="skin-pixel.js"></script>
+  <script src="skin-selector.js"></script>
+
+  <!-- Arranque: debe ir el último -->
+  <script src="bootstrap.js"></script>
 </body>
 </html>

@@ -41,7 +41,12 @@ Es una versión jugable del Tetris clásico con todas las mecánicas que esperar
 - **Vista previa** de la siguiente pieza.
 - **Sistema de puntuación** clásico de Tetris (100 / 300 / 500 / 800 multiplicado por nivel).
 - **Niveles** que aumentan cada 10 líneas y aceleran la caída.
-- **Pausa** y **Game Over** con opción de reinicio.
+- **Combo**: contador de limpiezas consecutivas (se reinicia si una pieza encaja sin limpiar línea).
+- **Pantalla de inicio** con selector de skin y tabla de records.
+- **Menú de pausa** con reanudar, reiniciar, ver controles y selector de nivel inicial.
+- **Tabla de records local** (top 5) persistida en `localStorage`, con mejor combo y líneas máximas.
+- **Skins visuales** intercambiables sin recargar la página.
+- **Tema claro / oscuro** persistente.
 
 ---
 
@@ -84,7 +89,9 @@ Después abre `http://localhost:8000` en el navegador.
 | `↑` o `X` | Rotar la pieza en sentido horario |
 | `↓`       | Soft drop (bajar más rápido)      |
 | `Espacio` | Hard drop (caída instantánea)     |
-| `P`       | Pausar / reanudar                 |
+| `P` / `Esc` | Abrir / cerrar el menú de pausa |
+
+Mientras el menú de pausa está abierto, las teclas de juego quedan bloqueadas para evitar movimientos accidentales al reanudar.
 
 ---
 
@@ -156,11 +163,42 @@ Cuando una pieza recién generada ya colisiona al aparecer (`spawn`), se dispara
 
 ```
 03-tetris/
-├── index.html      # Estructura del DOM y canvas
-├── style.css       # Estilos del juego (dark theme)
-├── game.js         # Toda la lógica del Tetris (~300 líneas)
+├── index.html            # DOM, canvas y todos los puntos de montaje
+├── style.css             # Estilos base (tema, panel, overlays, botones)
+│
+├── storage.js            # Wrapper con JSON + try/catch sobre localStorage
+├── game.js               # Mecánica, render y API pública `Game`
+├── records.js            # Capa de datos del top 5 (`Records`)
+├── skins.js              # Registro de skins (`Skins`)
+│
+├── menu-controls.js/css  # Menú de pausa: vista de controles
+├── menu-level.js/css     # Menú de pausa: selector de nivel inicial
+├── records-start.js/css  # Tabla de records en la pantalla de inicio
+├── records-gameover.js/css # Nombre + guardado + resaltado al perder
+├── records-reset.js/css  # Reset de records y estadísticas históricas
+├── skin-neon.js/css      # Skin Neon
+├── skin-pastel.js/css    # Skin Pastel
+├── skin-pixel.js/css     # Skin Pixel art
+├── skin-selector.js/css  # Selector de skin
+│
+├── bootstrap.js          # Arranque (debe cargarse el último)
 └── README.md
 ```
+
+Los módulos de UI solo consumen las APIs globales `Game`, `Records`, `Skins` y `Storage`; ninguno
+modifica los archivos base. Si su punto de montaje no existe, hacen *early return* sin fallar.
+
+### API de extensión
+
+| Llamada | Para qué sirve |
+| ------- | -------------- |
+| `Game.on(evt, fn)` | Escuchar `boot`, `start`, `restart`, `pause`, `resume`, `gameover` |
+| `Game.getStats()` | `{ score, lines, level, combo, maxCombo, maxLinesAtOnce }` |
+| `Game.setStartLevel(n)` | Nivel de la **próxima** partida (persistido) |
+| `Game.setPalette / setBlockRenderer / setBoardDecorator` | Puntos de enganche de las skins |
+| `Game.redraw()` | Repinta tablero y vista previa al instante |
+| `Records.load / qualifies / add / reset / onChange` | Tabla de records |
+| `Skins.register / list / apply / onChange` | Registro de skins |
 
 ---
 
