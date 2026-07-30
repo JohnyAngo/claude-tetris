@@ -24,6 +24,12 @@
   --records-highlight: rgba(122, 162, 247, 0.22);
   --danger: #e57373;
   --input-bg: #15151f;
+
+  /* valores por defecto que las skins pueden sobrescribir */
+  --board-bg: var(--panel-bg);
+  --board-radius: 4px;
+  --board-glow: 0 0 40px rgba(0, 0, 0, 0.2);
+  --title-glow: 0 0 20px rgba(122, 162, 247, 0.5);
 }
 
 :root[data-theme="light"] {
@@ -45,6 +51,98 @@
   --records-highlight: rgba(59, 91, 219, 0.18);
   --danger: #c62828;
   --input-bg: #ffffff;
+}
+
+/* ---- Skins ----
+   Van después de los temas a propósito: misma especificidad, gana el último.
+   "retro" no define overrides: usa los colores del tema activo. */
+
+:root[data-skin="neon"] {
+  --bg: #05050a;
+  --fg: #e6faff;
+  --accent: #00f5ff;
+  --accent-contrast: #05050a;
+  --panel-border: #16323a;
+  --panel-bg: #08080f;
+  --board-bg: #02020a;
+  --label-color: #3d7f8c;
+  --control-text: #6fa8b3;
+  --kbd-bg: #0d1b22;
+  --kbd-border: #1d4a57;
+  --kbd-text: #7fd6e6;
+  --overlay-bg: rgba(2, 2, 10, 0.8);
+  --overlay-title: #ff0055;
+  --grid-line: #10222b;
+  --title-glow: 0 0 12px rgba(0, 245, 255, 0.9), 0 0 28px rgba(0, 245, 255, 0.5);
+  --board-glow: 0 0 30px rgba(0, 245, 255, 0.25);
+  --records-row: rgba(0, 245, 255, 0.06);
+  --records-highlight: rgba(0, 245, 255, 0.2);
+  --danger: #ff0055;
+  --input-bg: #02020a;
+}
+
+:root[data-skin="pastel"] {
+  --bg: #fdf6f0;
+  --fg: #5b5060;
+  --accent: #8f7bb0;
+  --accent-contrast: #ffffff;
+  --panel-border: #e8dced;
+  --panel-bg: #fffdfb;
+  --board-bg: #fffdfb;
+  --label-color: #a99bb3;
+  --control-text: #8b7f92;
+  --kbd-bg: #f4ecf6;
+  --kbd-border: #e0d2e6;
+  --kbd-text: #7d6f86;
+  --overlay-bg: rgba(253, 246, 240, 0.85);
+  --overlay-title: #e08e8e;
+  --grid-line: #f0e7f2;
+  --title-glow: none;
+  --board-glow: 0 6px 24px rgba(143, 123, 176, 0.18);
+  --board-radius: 14px;
+  --records-row: rgba(0, 0, 0, 0.03);
+  --records-highlight: rgba(143, 123, 176, 0.18);
+  --danger: #e08e8e;
+  --input-bg: #fffdfb;
+}
+
+:root[data-skin="pixel"] {
+  --bg: #1c1c24;
+  --fg: #ded8c4;
+  --accent: #e8d84c;
+  --accent-contrast: #1c1c24;
+  --panel-border: #4a4a3c;
+  --panel-bg: #24242e;
+  --board-bg: #141419;
+  --label-color: #7a7a64;
+  --control-text: #9a9a84;
+  --kbd-bg: #2e2e38;
+  --kbd-border: #55554a;
+  --kbd-text: #c4bea8;
+  --overlay-bg: rgba(20, 20, 25, 0.82);
+  --overlay-title: #d43c3c;
+  --grid-line: #262630;
+  --title-glow: none;
+  --board-glow: none;
+  --board-radius: 0;
+  --records-row: rgba(255, 255, 255, 0.05);
+  --records-highlight: rgba(232, 216, 76, 0.22);
+  --danger: #d43c3c;
+  --input-bg: #141419;
+}
+
+:root[data-skin="pixel"] .game-title,
+:root[data-skin="pixel"] .value,
+:root[data-skin="pixel"] #overlay-title,
+:root[data-skin="pixel"] #overlay-score,
+:root[data-skin="pixel"] #restart-btn,
+:root[data-skin="pixel"] #skin-select {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+:root[data-skin="pixel"] #board,
+:root[data-skin="pixel"] #next-canvas {
+  image-rendering: pixelated;
 }
 
 body {
@@ -77,7 +175,7 @@ body {
   font-weight: 800;
   letter-spacing: 10px;
   color: var(--accent);
-  text-shadow: 0 0 20px rgba(122, 162, 247, 0.5);
+  text-shadow: var(--title-glow);
 }
 
 #theme-toggle {
@@ -109,9 +207,9 @@ body {
 #board {
   display: block;
   border: 1px solid var(--panel-border);
-  background: var(--panel-bg);
-  border-radius: 4px;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+  background: var(--board-bg);
+  border-radius: var(--board-radius);
+  box-shadow: var(--board-glow);
 }
 
 /* ---- Panel lateral ---- */
@@ -147,8 +245,27 @@ body {
 #next-canvas {
   display: block;
   border: 1px solid var(--panel-border);
+  background: var(--board-bg);
+  border-radius: var(--board-radius);
+}
+
+/* ---- Selector de skin ---- */
+#skin-select {
   background: var(--panel-bg);
-  border-radius: 4px;
+  color: var(--fg);
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 12px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+#skin-select:hover,
+#skin-select:focus {
+  border-color: var(--accent);
+  outline: none;
 }
 
 /* ---- Controles ---- */
