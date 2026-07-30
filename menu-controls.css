@@ -1,1 +1,69 @@
-/* Stub: estilos de menu-controls. Implementado en su propia unidad de trabajo. */
+/* Menú de pausa — subvista de controles (prefijo `mc-`).
+   Ojo: nunca se declara `display` sobre `#menu-controls-view`; un selector de
+   id ganaría a `.hidden` y la subvista no se podría ocultar. Todo el layout
+   vive en el envoltorio interno `.mc-panel`. */
+
+.mc-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  text-align: left;
+}
+
+.mc-title {
+  text-align: center;
+}
+
+.mc-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+}
+
+.mc-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 7px 2px;
+  font-size: 12px;
+  border-bottom: 1px solid var(--panel-border);
+}
+
+.mc-row:last-child {
+  border-bottom: none;
+}
+
+.mc-keys {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 0 0 auto;
+}
+
+.mc-sep {
+  color: var(--label-color);
+  font-size: 10px;
+  letter-spacing: 0.5px;
+}
+
+.mc-desc {
+  color: var(--control-text);
+  text-align: right;
+  line-height: 1.35;
+}
+
+.mc-hint {
+  display: block;
+  color: var(--label-color);
+  font-size: 10px;
+  letter-spacing: 0.5px;
+}
+
+.mc-back {
+  align-self: stretch;
+  margin-top: 2px;
+}
