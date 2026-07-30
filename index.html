@@ -28,10 +28,19 @@
           <span class="label">LEVEL</span>
           <span class="value" id="level">1</span>
         </div>
+        <div class="panel-section">
+          <span class="label">COMBO</span>
+          <span class="value" id="combo">—</span>
+        </div>
 
         <div class="panel-section">
           <span class="label">NEXT</span>
           <canvas id="next-canvas" width="120" height="120"></canvas>
+        </div>
+
+        <div class="panel-section">
+          <label class="label" for="skin-select">SKIN</label>
+          <select id="skin-select"></select>
         </div>
 
         <div class="panel-section controls">
@@ -41,17 +50,67 @@
             <li><kbd>↑</kbd> rotar</li>
             <li><kbd>↓</kbd> bajar</li>
             <li><kbd>Space</kbd> caída</li>
-            <li><kbd>P</kbd> pausa</li>
+            <li><kbd>P</kbd> <kbd>Esc</kbd> pausa</li>
           </ul>
         </div>
       </aside>
+    </div>
+
+    <div id="start-screen" class="overlay">
+      <div class="overlay-box">
+        <p id="start-title">TETRIS</p>
+        <div id="start-records" class="records"></div>
+        <button id="start-btn">Jugar</button>
+        <button id="reset-records-btn" class="btn-secondary">Resetear records</button>
+      </div>
     </div>
 
     <div id="overlay" class="overlay hidden">
       <div class="overlay-box">
         <p id="overlay-title">GAME OVER</p>
         <p id="overlay-score"></p>
-        <button id="restart-btn">Reiniciar</button>
+        <p id="overlay-stats" class="overlay-stats"></p>
+        <form id="name-form" class="name-form hidden" autocomplete="off">
+          <p class="new-record">¡Entras en el TOP 5!</p>
+          <div class="name-row">
+            <input id="player-name" type="text" maxlength="12" placeholder="Tu nombre" />
+            <button type="submit">Guardar</button>
+          </div>
+        </form>
+        <div id="overlay-records" class="records"></div>
+        <div class="overlay-actions">
+          <button id="restart-btn">Reiniciar</button>
+          <button id="menu-btn" class="btn-secondary">Menú</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="pause-overlay" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="pause-title">
+      <div class="overlay-box pause-box">
+        <p id="pause-title" class="pause-heading">PAUSA</p>
+
+        <div id="pause-main" class="pause-panel">
+          <button id="resume-btn" class="menu-btn menu-btn-primary">Reanudar</button>
+          <button id="pause-restart-btn" class="menu-btn">Reiniciar</button>
+          <button id="show-controls-btn" class="menu-btn">Ver controles</button>
+
+          <div class="menu-field">
+            <label class="menu-field-label" for="start-level">Nivel inicial</label>
+            <select id="start-level"></select>
+          </div>
+          <p class="menu-hint">Se aplica al empezar una nueva partida</p>
+        </div>
+
+        <div id="pause-controls" class="pause-panel hidden">
+          <ul class="menu-controls">
+            <li><span><kbd>←</kbd><kbd>→</kbd></span> Mover pieza</li>
+            <li><span><kbd>↑</kbd><kbd>X</kbd></span> Rotar</li>
+            <li><span><kbd>↓</kbd></span> Bajar (soft drop)</li>
+            <li><span><kbd>Space</kbd></span> Caída rápida</li>
+            <li><span><kbd>P</kbd><kbd>Esc</kbd></span> Pausa / reanudar</li>
+          </ul>
+          <button id="controls-back-btn" class="menu-btn">Volver</button>
+        </div>
       </div>
     </div>
   </div>
