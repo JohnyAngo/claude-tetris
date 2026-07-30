@@ -1,1 +1,101 @@
-/* Stub: estilos de records-reset. Implementado en su propia unidad de trabajo. */
+/* Unidad 5: estadísticas históricas y borrado de records.
+   Prefijo `.rr-` para no colisionar con otras unidades. */
+
+/* ---- Estadísticas (#start-records-stats) ---- */
+
+.rr-stats {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.rr-stat {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 6px;
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  background: var(--bg);
+}
+
+.rr-stat .label {
+  text-align: center;
+}
+
+.rr-stat-value {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+/* ---- Borrado (#start-records-reset) ---- */
+
+.rr-reset {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  align-items: stretch;
+}
+
+.rr-reset-btn {
+  width: 100%;
+}
+
+.rr-confirm {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rr-confirm-text {
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--control-text);
+  text-align: center;
+}
+
+.rr-confirm-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.rr-confirm-actions .menu-btn {
+  flex: 1 1 0;
+  min-width: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+/* Acción destructiva. Especificidad extra para ganar a `.menu-btn:hover`. */
+.menu-btn.rr-danger {
+  color: var(--overlay-title);
+  border-color: var(--overlay-title);
+}
+
+.menu-btn.rr-danger:hover {
+  color: var(--accent-contrast);
+  border-color: var(--overlay-title);
+  background: var(--overlay-title);
+}
+
+.menu-btn.rr-danger:focus-visible {
+  outline: 2px solid var(--overlay-title);
+  outline-offset: 2px;
+}
+
+.rr-notice {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--accent);
+  text-align: center;
+}
