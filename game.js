@@ -43,7 +43,8 @@ const themeToggleBtn = document.getElementById('theme-toggle');
 
 const THEME_STORAGE_KEY = 'tetris-theme';
 
-let board, current, next, score, lines, level, paused, gameOver, lastTime, dropAccum, dropInterval, animId;
+let board, current, next, score, lines, level, paused, gameOver, lastTime, dropAccum, dropInterval;
+let animId = null;
 let gridLineColor;
 
 function readCanvasThemeColors() {
@@ -170,10 +171,10 @@ function lockPiece() {
 function spawn() {
   current = next;
   next = randomPiece();
+  drawNext();
   if (collide(current.shape, current.x, current.y)) {
     endGame();
   }
-  drawNext();
 }
 
 function updateHUD() {
@@ -245,8 +246,10 @@ function drawNext() {
 }
 
 function endGame() {
+  if (gameOver) return;
   gameOver = true;
-  cancelAnimationFrame(animId);
+  if (animId !== null) cancelAnimationFrame(animId);
+  animId = null;
   overlayTitle.textContent = 'GAME OVER';
   overlayScore.textContent = `Puntuación: ${score.toLocaleString()}`;
   overlay.classList.remove('hidden');
@@ -259,7 +262,8 @@ function togglePause() {
     lastTime = performance.now();
     loop(lastTime);
   } else {
-    cancelAnimationFrame(animId);
+    if (animId !== null) cancelAnimationFrame(animId);
+    animId = null;
     overlayTitle.textContent = 'PAUSA';
     overlayScore.textContent = '';
     overlay.classList.remove('hidden');
@@ -267,6 +271,7 @@ function togglePause() {
 }
 
 function loop(ts) {
+  if (gameOver || paused) { animId = null; return; }
   const dt = ts - lastTime;
   lastTime = ts;
   dropAccum += dt;
@@ -279,6 +284,7 @@ function loop(ts) {
     }
   }
   draw();
+  if (gameOver || paused) { animId = null; return; }
   animId = requestAnimationFrame(loop);
 }
 
@@ -296,7 +302,7 @@ function init() {
   spawn();
   updateHUD();
   overlay.classList.add('hidden');
-  cancelAnimationFrame(animId);
+  if (animId !== null) cancelAnimationFrame(animId);
   animId = requestAnimationFrame(loop);
 }
 
