@@ -1,0 +1,12 @@
+[
+  { "name": "area:gameplay",     "color": "1d76db", "description": "Logica de juego: colisiones, rotacion, gravedad, spawn" },
+  { "name": "area:render",       "color": "1d76db", "description": "Dibujado en canvas, colores, animacion" },
+  { "name": "area:ui",           "color": "1d76db", "description": "Layout HTML/CSS, panel, overlay" },
+  { "name": "area:controls",     "color": "1d76db", "description": "Input de teclado, pausa, hard drop" },
+  { "name": "area:score",        "color": "1d76db", "description": "Puntaje, lineas, niveles, velocidad" },
+  { "name": "priority:critical", "color": "b60205", "description": "Juego inutilizable" },
+  { "name": "priority:high",     "color": "d93f0b", "description": "Rompe una mecanica principal" },
+  { "name": "priority:medium",   "color": "fbca04", "description": "Molesto pero con workaround" },
+  { "name": "priority:low",      "color": "0e8a16", "description": "Cosmetico o nice-to-have" },
+  { "name": "needs-info",        "color": "bfd4f2", "description": "Falta info para reproducir o decidir" }
+]
